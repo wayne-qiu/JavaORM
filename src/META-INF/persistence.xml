@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="JavaORM">
+		<class>erf.domain.ErfClient</class>
+		<class>erf.domain.LookupType</class>
+		<class>erf.domain.Module</class>
+		<class>erf.domain.ModuleCategory</class>
+		<class>erf.domain.ModuleParameter</class>
+		<class>erf.domain.Package</class>
+		<class>erf.domain.PackageDef</class>
+		<class>erf.domain.PackageDetail</class>
+		<class>erf.domain.ReportCategory</class>
+		<class>erf.domain.ReportDef</class>
+		<class>erf.domain.ReportInstance</class>
+		<class>erf.domain.ReportInstanceParameter</class>
+		<class>erf.domain.ReportParameter</class>
+		<class>erf.domain.SchdSchedule</class>
+	</persistence-unit>
+</persistence>
