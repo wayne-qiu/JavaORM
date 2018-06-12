@@ -2,7 +2,7 @@ package erf.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -18,6 +18,9 @@ public class ReportParameter implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
+
+	@Column(name="CLIENT_ID")
+	private int clientId;
 
 	@Column(name="DATA_TYPE")
 	private String dataType;
@@ -40,18 +43,9 @@ public class ReportParameter implements Serializable {
 	@Column(name="WIDGET_TYPE")
 	private String widgetType;
 
-	//bi-directional many-to-one association to ModuleParameter
+	//bi-directional many-to-one association to ReportDataParameter
 	@OneToMany(mappedBy="reportParameter")
-	private List<ModuleParameter> moduleParameters;
-
-	//bi-directional many-to-one association to ReportInstanceParameter
-	@OneToMany(mappedBy="reportParameter")
-	private List<ReportInstanceParameter> reportInstanceParameters;
-
-	//bi-directional many-to-one association to ErfClient
-	@ManyToOne
-	@JoinColumn(name="CLIENT_ID")
-	private ErfClient erfClient;
+	private Set<ReportDataParameter> reportDataParameters;
 
 	public ReportParameter() {
 	}
@@ -62,6 +56,14 @@ public class ReportParameter implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public int getClientId() {
+		return this.clientId;
+	}
+
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
 	}
 
 	public String getDataType() {
@@ -136,56 +138,26 @@ public class ReportParameter implements Serializable {
 		this.widgetType = widgetType;
 	}
 
-	public List<ModuleParameter> getModuleParameters() {
-		return this.moduleParameters;
+	public Set<ReportDataParameter> getReportDataParameters() {
+		return this.reportDataParameters;
 	}
 
-	public void setModuleParameters(List<ModuleParameter> moduleParameters) {
-		this.moduleParameters = moduleParameters;
+	public void setReportDataParameters(Set<ReportDataParameter> reportDataParameters) {
+		this.reportDataParameters = reportDataParameters;
 	}
 
-	public ModuleParameter addModuleParameter(ModuleParameter moduleParameter) {
-		getModuleParameters().add(moduleParameter);
-		moduleParameter.setReportParameter(this);
+	public ReportDataParameter addReportDataParameter(ReportDataParameter reportDataParameter) {
+		getReportDataParameters().add(reportDataParameter);
+		reportDataParameter.setReportParameter(this);
 
-		return moduleParameter;
+		return reportDataParameter;
 	}
 
-	public ModuleParameter removeModuleParameter(ModuleParameter moduleParameter) {
-		getModuleParameters().remove(moduleParameter);
-		moduleParameter.setReportParameter(null);
+	public ReportDataParameter removeReportDataParameter(ReportDataParameter reportDataParameter) {
+		getReportDataParameters().remove(reportDataParameter);
+		reportDataParameter.setReportParameter(null);
 
-		return moduleParameter;
-	}
-
-	public List<ReportInstanceParameter> getReportInstanceParameters() {
-		return this.reportInstanceParameters;
-	}
-
-	public void setReportInstanceParameters(List<ReportInstanceParameter> reportInstanceParameters) {
-		this.reportInstanceParameters = reportInstanceParameters;
-	}
-
-	public ReportInstanceParameter addReportInstanceParameter(ReportInstanceParameter reportInstanceParameter) {
-		getReportInstanceParameters().add(reportInstanceParameter);
-		reportInstanceParameter.setReportParameter(this);
-
-		return reportInstanceParameter;
-	}
-
-	public ReportInstanceParameter removeReportInstanceParameter(ReportInstanceParameter reportInstanceParameter) {
-		getReportInstanceParameters().remove(reportInstanceParameter);
-		reportInstanceParameter.setReportParameter(null);
-
-		return reportInstanceParameter;
-	}
-
-	public ErfClient getErfClient() {
-		return this.erfClient;
-	}
-
-	public void setErfClient(ErfClient erfClient) {
-		this.erfClient = erfClient;
+		return reportDataParameter;
 	}
 
 }

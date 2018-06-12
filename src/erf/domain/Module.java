@@ -3,7 +3,7 @@ package erf.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -30,6 +30,9 @@ public class Module implements Serializable {
 
 	private String format;
 
+	@Column(name="MODCAT_ID")
+	private int modcatId;
+
 	@Column(name="MODIFY_TIME")
 	private Timestamp modifyTime;
 
@@ -41,11 +44,6 @@ public class Module implements Serializable {
 
 	private String type;
 
-	//bi-directional many-to-one association to ModuleCategory
-	@ManyToOne
-	@JoinColumn(name="MODCAT_ID")
-	private ModuleCategory moduleCategory;
-
 	//bi-directional many-to-one association to Module
 	@ManyToOne
 	@JoinColumn(name="PARENT_ID")
@@ -53,11 +51,11 @@ public class Module implements Serializable {
 
 	//bi-directional many-to-one association to Module
 	@OneToMany(mappedBy="module")
-	private List<Module> modules;
+	private Set<Module> modules;
 
-	//bi-directional many-to-one association to ModuleParameter
+	//bi-directional many-to-one association to ModuleReportData
 	@OneToMany(mappedBy="module")
-	private List<ModuleParameter> moduleParameters;
+	private Set<ModuleReportData> moduleReportData;
 
 	public Module() {
 	}
@@ -102,6 +100,14 @@ public class Module implements Serializable {
 		this.format = format;
 	}
 
+	public int getModcatId() {
+		return this.modcatId;
+	}
+
+	public void setModcatId(int modcatId) {
+		this.modcatId = modcatId;
+	}
+
 	public Timestamp getModifyTime() {
 		return this.modifyTime;
 	}
@@ -134,14 +140,6 @@ public class Module implements Serializable {
 		this.type = type;
 	}
 
-	public ModuleCategory getModuleCategory() {
-		return this.moduleCategory;
-	}
-
-	public void setModuleCategory(ModuleCategory moduleCategory) {
-		this.moduleCategory = moduleCategory;
-	}
-
 	public Module getModule() {
 		return this.module;
 	}
@@ -150,11 +148,11 @@ public class Module implements Serializable {
 		this.module = module;
 	}
 
-	public List<Module> getModules() {
+	public Set<Module> getModules() {
 		return this.modules;
 	}
 
-	public void setModules(List<Module> modules) {
+	public void setModules(Set<Module> modules) {
 		this.modules = modules;
 	}
 
@@ -172,26 +170,26 @@ public class Module implements Serializable {
 		return module;
 	}
 
-	public List<ModuleParameter> getModuleParameters() {
-		return this.moduleParameters;
+	public Set<ModuleReportData> getModuleReportData() {
+		return this.moduleReportData;
 	}
 
-	public void setModuleParameters(List<ModuleParameter> moduleParameters) {
-		this.moduleParameters = moduleParameters;
+	public void setModuleReportData(Set<ModuleReportData> moduleReportData) {
+		this.moduleReportData = moduleReportData;
 	}
 
-	public ModuleParameter addModuleParameter(ModuleParameter moduleParameter) {
-		getModuleParameters().add(moduleParameter);
-		moduleParameter.setModule(this);
+	public ModuleReportData addModuleReportData(ModuleReportData moduleReportData) {
+		getModuleReportData().add(moduleReportData);
+		moduleReportData.setModule(this);
 
-		return moduleParameter;
+		return moduleReportData;
 	}
 
-	public ModuleParameter removeModuleParameter(ModuleParameter moduleParameter) {
-		getModuleParameters().remove(moduleParameter);
-		moduleParameter.setModule(null);
+	public ModuleReportData removeModuleReportData(ModuleReportData moduleReportData) {
+		getModuleReportData().remove(moduleReportData);
+		moduleReportData.setModule(null);
 
-		return moduleParameter;
+		return moduleReportData;
 	}
 
 }

@@ -15,5 +15,8 @@
 		<class>erf.domain.ReportInstanceParameter</class>
 		<class>erf.domain.ReportParameter</class>
 		<class>erf.domain.SchdSchedule</class>
+		<class>erf.domain.ModuleReportData</class>
+		<class>erf.domain.ReportDataDef</class>
+		<class>erf.domain.ReportDataParameter</class>
 	</persistence-unit>
 </persistence>
